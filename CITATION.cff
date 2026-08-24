@@ -1,0 +1,13 @@
+# Citation file
+# For more information, see:
+# https://citation-file-format.github.io/
+cff-version: 1.2.0
+message: If you use this software or data produced by it, please cite it using the metadata from this file.
+title: "Modelblocks - module_energy_system_europe: Integration workflow for the European energy system "
+repository: "https://github.com/modelblocks-org/module_energy_system_europe"
+license: Apache-2.0
+authors:
+  - given-names: "Jann"
+    family-names: "Launer"
+    email: "j.a.c.launer@tudelft.nl"
+
