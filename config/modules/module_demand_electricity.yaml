@@ -1,0 +1,5 @@
+module_demand_electricity:
+  temporal_scope:
+    start: "2018-01-01"
+    end: "2018-12-31"
+  use_load: entsoe_api # entsoe_opsd or entsoe_api

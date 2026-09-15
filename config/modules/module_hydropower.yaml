@@ -1,5 +1,5 @@
 module_hydropower:
-  pfaffstetter_level: "06"
+  pfafstetter_level: "06"
   years:  # Include 2011, 2012 data
     start: 2011
     end: 2013

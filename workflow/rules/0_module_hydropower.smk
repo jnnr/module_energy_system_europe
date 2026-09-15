@@ -3,11 +3,11 @@ configfile: "config/modules/module_hydropower.yaml"
 
 module module_hydropower:
     pathvars:
-        logs="resources/module_hydropower/logs",
-        resources="resources/module_hydropower/resources",
-        results="resources/module_hydropower/results",
+        logs="results/module_hydropower/logs",
+        resources="results/module_hydropower/resources",
+        results="results/module_hydropower/results",
         shapes="results/module_geo_boundaries/results/{shapes}/shapes.parquet",
-        powerplants="results/module_powerplants/{shapes}/powerplants.parquet",
+        powerplants="results/module_powerplants/results/{shapes}/powerplants/adjusted/hydropower.parquet",
     snakefile:
         github(
             "modelblocks-org/module_hydropower",
@@ -17,9 +17,13 @@ module module_hydropower:
     config:
         config["module_hydropower"]
 
+
+use rule * from module_hydropower as module_hydropower_*
+
+
 rule all_hydropower:
     message: "Prepare all results of module_hydropower."
     input:
-        expand("results/module_hydropower/{shapes}/statistics/generation.parquet", shapes=["NUTS0"]),
-        expand("results/module_hydropower/{shapes}/disaggregated/inflow_mwh.parquet", shapes=["NUTS0"]),
-        expand("results/module_hydropower/{shapes}/aggregated/{plant_type}_inflow_pu.parquet", shapes=["NUTS0"], plant_type=["run_of_river", "reservoir"]),
+        expand("results/module_hydropower/results/{shapes}/statistics/generation.parquet", shapes=["NUTS0"]),
+        expand("results/module_hydropower/results/{shapes}/disaggregated/inflow_mwh.parquet", shapes=["NUTS0"]),
+        expand("results/module_hydropower/results/{shapes}/aggregated/{plant_type}_inflow_pu.parquet", shapes=["NUTS0"], plant_type=["run_of_river", "reservoir"]),
