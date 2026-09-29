@@ -1,8 +1,8 @@
 module_demand_electricity:
   temporal_scope:
-    start: "2018-01-01"
-    end: "2018-12-31"
-    frequency: "1h"
+    start:  # empty, set by the global config
+    end:  # empty, set by the global config
+    frequency:  # empty, set by the global config
 
   # Load sources are listed in priority order. Where multiple sources provide
   # data for the same country and timestamp, the earlier source takes priority.

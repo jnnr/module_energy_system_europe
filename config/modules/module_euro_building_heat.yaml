@@ -2,13 +2,13 @@ module_euro_building_heat:
   # Minimal example configuration for the heat demand workflow.
   demand_years:
     # End year is exclusive, matching the Modelblocks module convention.
-    start: 2023
-    end: 2024
+    start:  # empty, set by the global config
+    end:  # empty, set by the global config
 
   weather_years:
     # Weather years used to shape hourly heat demand profiles. End year is exclusive.
-    start: 2023
-    end: 2024
+    start:  # empty, set by the global config
+    end:  # empty, set by the global config
 
   threads:
     aggregation: 8

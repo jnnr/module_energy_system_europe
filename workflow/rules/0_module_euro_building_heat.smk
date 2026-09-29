@@ -1,5 +1,17 @@
 configfile: "config/modules/module_euro_building_heat.yaml"
 
+MODULE_NAME = "module_euro_building_heat"
+
+
+def config_module_euro_building_heat():
+    module_config = config[MODULE_NAME]
+    module_config["demand_years"]["start"] = config["year_start"]
+    module_config["demand_years"]["end"] = config["year_end"]
+    module_config["weather_years"]["start"] = config["year_start"]
+    module_config["weather_years"]["end"] = config["year_end"]
+    return module_config
+
+
 module module_euro_building_heat:
     snakefile:
         github(
@@ -13,7 +25,7 @@ module module_euro_building_heat:
         results="results/module_euro_building_heat/results",
         shapes="results/module_geo_boundaries/results/{shapes}/shapes.parquet",
         edh_api="resources/user/module_euro_building_heat/edh_api_key.txt",
-    config: config["module_euro_building_heat"]
+    config: config_module_euro_building_heat()
 
 use rule * from module_euro_building_heat as module_euro_building_heat_*
 

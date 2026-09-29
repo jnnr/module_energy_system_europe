@@ -1,5 +1,14 @@
 configfile: "config/modules/module_hydropower.yaml"
 
+MODULE_NAME = "module_hydropower"
+
+
+def config_module_hydropower():
+    module_config = config[MODULE_NAME]
+    module_config["years"]["start"] = config["year_start"]
+    module_config["years"]["end"] = config["year_end"]
+    return module_config
+
 
 module module_hydropower:
     pathvars:
@@ -15,7 +24,7 @@ module module_hydropower:
             tag="v0.2.2",
         )
     config:
-        config["module_hydropower"]
+        config_module_hydropower()
 
 
 use rule * from module_hydropower as module_hydropower_*

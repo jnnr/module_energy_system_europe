@@ -3,6 +3,12 @@ description: "Schema for user-provided configuration files."
 type: object
 additionalProperties: false
 properties:
-  dummy_text:
-    description: A template example. Should be deleted in real applications.
+  year_start:
+    description: Start year (global setting passed to all modules)
+    type: number
+  year_end:
+    description: End year (global setting passed to all modules)
+    type: number
+  temporal_resolution:
+    description: Temporal resolution (global setting passed to all modules)
     type: string

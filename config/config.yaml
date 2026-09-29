@@ -1,2 +1,4 @@
-# A minimal example of how to configure this module
-dummy_text: This is a user input.
+# # Global settings
+year_start: 2018
+year_end: 2019
+temporal_resolution: "1h"

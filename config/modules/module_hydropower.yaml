@@ -1,8 +1,8 @@
 module_hydropower:
   pfafstetter_level: "06"
   years:  # Include 2011, 2012 data
-    start: 2011
-    end: 2013
+    start: # empty, set by the global config
+    end: # empty, set by the global config
   powerplants:
     technology_mapping:
       run_of_river: "run of river"

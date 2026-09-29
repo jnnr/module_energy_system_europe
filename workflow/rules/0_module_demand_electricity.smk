@@ -1,5 +1,18 @@
 configfile: "config/modules/module_demand_electricity.yaml"
 
+MODULE_NAME = "module_demand_electricity"
+
+
+def config_module_demand_electricity():
+    module_config = config[MODULE_NAME]
+    def to_YYYY_MM_DD(year):
+        return f"{year}-01-01"
+    module_config["temporal_scope"]["start"] = to_YYYY_MM_DD(config["year_start"])
+    module_config["temporal_scope"]["end"] = to_YYYY_MM_DD(config["year_end"])
+    module_config["temporal_scope"]["frequency"] = config["temporal_resolution"]
+    return module_config
+
+
 module module_demand_electricity:
     snakefile:
         github(
@@ -13,7 +26,7 @@ module module_demand_electricity:
         results="results/module_demand_electricity/results",
         shapes="results/module_geo_boundaries/results/{shape}/shapes.parquet",
         token_entsoe="resources/user/module_demand_electricity/token_entsoe.txt"
-    config: config["module_demand_electricity"]
+    config: config_module_demand_electricity()
 
 use rule * from module_demand_electricity as module_demand_electricity_*
 
