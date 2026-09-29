@@ -5,7 +5,7 @@ module module_euro_building_heat:
         github(
             "modelblocks-org/module_euro_building_heat",
             path="workflow/Snakefile",
-            tag="fb59b51"
+            tag="v0.1.0"
         )
     pathvars: 
         logs="results/module_euro_building_heat/logs",
@@ -21,7 +21,6 @@ use rule * from module_euro_building_heat as module_euro_building_heat_*
 SHAPES = [
     "NUTS0",
     "NUTS2",
-    "NUTS3"
 ]
 
 rule all_euro_building_heat:
