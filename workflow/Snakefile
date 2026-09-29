@@ -33,6 +33,7 @@ include: "rules/0_module_demand_electricity.smk"
 include: "rules/0_module_geo_boundaries.smk"
 include: "rules/0_module_hydropower.smk"
 include: "rules/0_module_powerplants.smk"
+include: "rules/0_module_euro_building_heat.smk"
 
 # Add additional files to be delivered alongside the workflow here.
 # This is needed e.g. for python code files that are never
