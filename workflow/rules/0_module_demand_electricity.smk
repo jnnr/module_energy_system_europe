@@ -5,7 +5,7 @@ module module_demand_electricity:
         github(
             "modelblocks-org/module_demand_electricity",
             path="workflow/Snakefile",
-            tag="49eee49"
+            tag="v0.2.0"
         )
     pathvars: 
         logs="results/module_demand_electricity/logs",

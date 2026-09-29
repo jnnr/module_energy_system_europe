@@ -56,13 +56,13 @@ module_demand_electricity:
       auxiliary_data:
         # Apply the same basic cleaning rules to acquired auxiliary data before
         # it is used to construct advanced replacement profiles.
-        basic_cleaning:
+        basic_gap_filling:
           enabled: true
 
       sources:
 
-        # Train source on average per-hour demand across 2010-2025
-        # Rescale to 2010-2015, to closer match demand of 2006-2010
+        # Build synethic source on average per-hour demand across [2010,2014),[2014,2018),[2018,2022)
+        # Rescale to [2010,2014), to closer match demand of [2006,2010)
         avg_finland_2010_2022_scaled_to_2010_2014:
           method: construct_from_sources
           periods:
