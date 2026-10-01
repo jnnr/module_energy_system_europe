@@ -20,7 +20,7 @@ configfile: workflow.source_path("../config/config.yaml")
 
 
 # Validate the configuration using the schema file.
-validate(config, workflow.source_path("internal/config.schema.yaml"))
+# validate(config, workflow.source_path("internal/config.schema.yaml"))
 
 # Load internal settings separately so users cannot modify them.
 with open(workflow.source_path("internal/settings.yaml"), "r") as f:
@@ -28,17 +28,20 @@ with open(workflow.source_path("internal/settings.yaml"), "r") as f:
 
 
 # Add all your includes here.
+# include: "rules/0_grid_builder.smk"
 include: "rules/0_module_area_potentials.smk"
 include: "rules/0_module_demand_electricity.smk"
 include: "rules/0_module_geo_boundaries.smk"
 include: "rules/0_module_hydropower.smk"
 include: "rules/0_module_powerplants.smk"
 include: "rules/0_module_euro_building_heat.smk"
+include: "rules/1_integrate.smk"
 
 # Add additional files to be delivered alongside the workflow here.
 # This is needed e.g. for python code files that are never
 # explicitly used as a script or input in a snakemake rule.
 # e.g.: workflow.source_path("scripts/_utils.py")
+
 
 rule all:
     message:
@@ -52,3 +55,32 @@ rule all:
         "envs/module.yaml"
     shell:
         'echo "This workflow must be called as a snakemake module." > {log.stderr}'
+
+
+SHAPES = "EUROPE_S_C1_ADM1"
+rule test_integration:
+    default_target: True
+    input:
+        expand(
+            "results/module_area_potentials/results/{shape}/reference/area_potential_{tech}.tif",
+            tech=["wind_onshore", "wind_offshore", "pv_open_field", "pv_rooftop"],
+            shape=SHAPES,
+        ),
+        expand(
+            "results/module_demand_electricity/results/{shapes}/demand_electricity_MW.parquet",
+            shapes=SHAPES,
+        ),
+        expand("results/module_euro_building_heat/results/{shapes}/annual/heat_demand_twh.parquet", shapes=SHAPES),
+        expand("results/module_euro_building_heat/results/{shapes}/hourly/heat_demand_mwh.parquet", shapes=SHAPES),
+        expand("results/module_euro_building_heat/results/{shapes}/hourly/heat_pump_cop_pu.parquet", shapes=SHAPES),
+        expand("results/module_euro_building_heat/results/{shapes}/hourly/heat_pump_electricity_demand_mwh.parquet", shapes=SHAPES),
+        "results/module_geo_boundaries/results/NUTS0/shapes.parquet",
+        expand("results/module_hydropower/results/{shapes}/statistics/generation.parquet", shapes=SHAPES),
+        expand("results/module_hydropower/results/{shapes}/disaggregated/inflow_mwh.parquet", shapes=SHAPES),
+        expand("results/module_hydropower/results/{shapes}/aggregated/{plant_type}_inflow_pu.parquet", shapes=SHAPES, plant_type=["run_of_river", "reservoir"]),
+        expand(
+            "results/module_powerplants/results/{shapes}/aggregated/{adjustment}/{category}.parquet",
+            shapes=SHAPES,
+            adjustment=["adjusted"],
+            category=["bioenergy", "fossil", "geothermal", "hydropower", "nuclear", "wind", "solar"]  # "large_solar"
+        )

@@ -28,11 +28,3 @@ module module_hydropower:
 
 
 use rule * from module_hydropower as module_hydropower_*
-
-
-rule all_hydropower:
-    message: "Prepare all results of module_hydropower."
-    input:
-        expand("results/module_hydropower/results/{shapes}/statistics/generation.parquet", shapes=["NUTS0"]),
-        expand("results/module_hydropower/results/{shapes}/disaggregated/inflow_mwh.parquet", shapes=["NUTS0"]),
-        expand("results/module_hydropower/results/{shapes}/aggregated/{plant_type}_inflow_pu.parquet", shapes=["NUTS0"], plant_type=["run_of_river", "reservoir"]),

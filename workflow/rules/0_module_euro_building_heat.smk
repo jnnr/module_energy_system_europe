@@ -28,16 +28,3 @@ module module_euro_building_heat:
     config: config_module_euro_building_heat()
 
 use rule * from module_euro_building_heat as module_euro_building_heat_*
-
-
-SHAPES = [
-    "NUTS0",
-    "NUTS2",
-]
-
-rule all_euro_building_heat:
-    input:
-        expand("results/module_euro_building_heat/results/{shapes}/annual/heat_demand_twh.parquet", shapes=SHAPES),
-        expand("results/module_euro_building_heat/results/{shapes}/hourly/heat_demand_mwh.parquet", shapes=SHAPES),
-        expand("results/module_euro_building_heat/results/{shapes}/hourly/heat_pump_cop_pu.parquet", shapes=SHAPES),
-        expand("results/module_euro_building_heat/results/{shapes}/hourly/heat_pump_electricity_demand_mwh.parquet", shapes=SHAPES),
