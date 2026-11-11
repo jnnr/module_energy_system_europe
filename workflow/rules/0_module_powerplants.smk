@@ -1,5 +1,3 @@
-configfile: "config/modules/module_powerplants.yaml"
-
 module module_powerplants:
     snakefile:
         github(

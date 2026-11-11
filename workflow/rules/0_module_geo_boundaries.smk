@@ -1,6 +1,3 @@
-configfile: "config/modules/module_geo_boundaries.yaml"
-
-
 module module_geo_boundaries:
     snakefile:
         github(

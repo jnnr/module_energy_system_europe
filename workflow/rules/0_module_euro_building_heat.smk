@@ -1,10 +1,8 @@
-configfile: "config/modules/module_euro_building_heat.yaml"
-
 MODULE_NAME = "module_euro_building_heat"
 
 
 def config_module_euro_building_heat():
-    module_config = config[MODULE_NAME]
+    module_config = copy.deepcopy(config[MODULE_NAME])
     module_config["demand_years"]["start"] = config["year_start"]
     module_config["demand_years"]["end"] = config["year_end"]
     module_config["weather_years"]["start"] = config["year_start"]

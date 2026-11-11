@@ -1,6 +1,8 @@
+import copy
+
 import yaml
 
-from snakemake.utils import min_version, validate
+from snakemake.utils import min_version, update_config, validate
 
 min_version("9.19")
 
@@ -15,8 +17,30 @@ pathvars:
     combined_text="<results>/combined_text.md"
 
 
-# Load the example configuration. This will be overridden by users.
-configfile: workflow.source_path("../config/config.yaml")
+# Load the default configuration and deep-merge the user's config on top of it.
+# NOTE: `configfile:` directives are ignored by Snakemake when this workflow is
+# imported as a module with `config:` (see snakemake/modules.py, `skip_configfile`),
+# so defaults are read explicitly here. This works both standalone and imported,
+# and `config` always has the same flat shape inside this module.
+DEFAULT_CONFIG_FILES = [
+    "../config/config.yaml",
+    "../config/modules/module_area_potentials.yaml",
+    "../config/modules/module_demand_electricity.yaml",
+    "../config/modules/module_euro_building_heat.yaml",
+    "../config/modules/module_geo_boundaries.yaml",
+    "../config/modules/module_hydropower.yaml",
+    "../config/modules/module_powerplants.yaml",
+    "../config/modules/module_pv_wind.yaml",
+    "../config/modules/grid_builder.yaml",
+]
+_merged_config = {}
+for _path in DEFAULT_CONFIG_FILES:
+    with open(workflow.source_path(_path), "r") as f:
+        update_config(_merged_config, yaml.safe_load(f) or {})
+update_config(_merged_config, copy.deepcopy(config))  # user values win
+# Mutate in place so every reference to `config` sees the merged result.
+config.clear()
+config.update(_merged_config)
 
 
 # Validate the configuration using the schema file.

@@ -1,12 +1,11 @@
-configfile: "config/modules/module_demand_electricity.yaml"
-
 MODULE_NAME = "module_demand_electricity"
 
 
 def config_module_demand_electricity():
-    module_config = config[MODULE_NAME]
     def to_YYYY_MM_DD(year):
         return f"{year}-01-01"
+
+    module_config = copy.deepcopy(config[MODULE_NAME])
     module_config["temporal_scope"]["start"] = to_YYYY_MM_DD(config["year_start"])
     module_config["temporal_scope"]["end"] = to_YYYY_MM_DD(config["year_end"])
     module_config["temporal_scope"]["frequency"] = config["temporal_resolution"]

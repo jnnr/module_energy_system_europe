@@ -1,5 +1,3 @@
-configfile: "config/modules/module_area_potentials.yaml"
-
 module module_area_potentials:
     snakefile:
         github(

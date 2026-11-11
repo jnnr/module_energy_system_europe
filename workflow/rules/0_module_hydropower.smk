@@ -1,10 +1,8 @@
-configfile: "config/modules/module_hydropower.yaml"
-
 MODULE_NAME = "module_hydropower"
 
 
 def config_module_hydropower():
-    module_config = config[MODULE_NAME]
+    module_config = copy.deepcopy(config[MODULE_NAME])
     module_config["years"]["start"] = config["year_start"]
     module_config["years"]["end"] = config["year_end"]
     return module_config
