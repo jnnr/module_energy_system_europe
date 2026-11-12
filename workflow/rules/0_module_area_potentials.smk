@@ -1,3 +1,7 @@
+MODULE_NAME = "module_area_potentials"
+configfile: MODULE_CONFIG_DIR / f"{MODULE_NAME}.yaml"
+
+
 module module_area_potentials:
     snakefile:
         github(
@@ -11,7 +15,7 @@ module module_area_potentials:
         logs="results/module_area_potentials/logs",
         shapes="results/module_geo_boundaries/results/{shape}/shapes.parquet",
         wdpa="resources/user/module_area_potentials/WDPA/wdpa.gdb",
-    config: config["module_area_potentials"]
+    config: config[MODULE_NAME]
 
 
 use rule * from module_area_potentials as module_area_potentials_*

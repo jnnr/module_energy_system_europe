@@ -1,3 +1,7 @@
+MODULE_NAME = "module_powerplants"
+configfile: MODULE_CONFIG_DIR / f"{MODULE_NAME}.yaml"
+
+
 module module_powerplants:
     snakefile:
         github(
@@ -12,7 +16,7 @@ module module_powerplants:
         shapes="results/module_geo_boundaries/results/{shapes}/shapes.parquet",
         proxy_rooftop_pv="results/module_area_potentials/results/{shapes}/reference/area_potential_pv_rooftop.tif",
         wemi="resources/user/wemi.xls",
-    config: config["module_powerplants"]
+    config: config[MODULE_NAME]
 
 use rule * from module_powerplants as module_powerplants_*
 

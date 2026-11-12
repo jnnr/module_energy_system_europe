@@ -1,3 +1,7 @@
+MODULE_NAME = "module_geo_boundaries"
+configfile: MODULE_CONFIG_DIR / f"{MODULE_NAME}.yaml"
+
+
 module module_geo_boundaries:
     snakefile:
         github(
@@ -5,7 +9,7 @@ module module_geo_boundaries:
             path="workflow/Snakefile",
             tag="v1.0.2",
         )
-    config: config["module_geo_boundaries"]
+    config: config[MODULE_NAME]
     pathvars:
         logs="results/module_geo_boundaries/logs",
         resources="results/module_geo_boundaries/resources",

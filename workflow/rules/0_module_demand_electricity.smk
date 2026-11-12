@@ -1,4 +1,5 @@
 MODULE_NAME = "module_demand_electricity"
+configfile: MODULE_CONFIG_DIR / f"{MODULE_NAME}.yaml"
 
 
 def config_module_demand_electricity():
