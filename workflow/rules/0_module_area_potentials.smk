@@ -38,26 +38,27 @@ rule all_area_potentials:
 rule aggregate_raster_to_poly:
     input:
         raster="results/module_area_potentials/results/{shape}/reference/area_potential_{tech}.tif",
-        polygons="results/prepare/{shape}/shapes.parquet",
+        polygons="results/module_geo_boundaries/results/{shape}/shapes.parquet",
     output: "results/prepare/{shape}/area_potentials/reference/area_potential_{tech}.parquet"
-    shell: "python scripts/aggregate_raster_to_poly.py {input.raster} {input.polygons} {output[0]}"
+    conda: "../envs/geo.yaml"
+    shell: "python workflow/scripts/aggregate_raster_to_poly.py {input.raster} {input.polygons} {output[0]}"
 
-# rule prepare_power_potential:
-#     input:
-#         area_potential="results/prepare/{shape}/area_potentials/area_potential_{tech}.parquet",
-#         power_densities="data/prepare/power_densities/power_densities.csv",
-#         shapes="results/prepare/{shape}/shapes.parquet",
-#         map_shapes_to_nodes="results/module_electricity_grid/{shape}/results/map_shapes_to_nodes.parquet",
-#     output:
-#        "results/prepare/{shape}/power_potentials/power_potential_{tech}.parquet",
-#     script: "../scripts/prepare_power_potential.py"
+rule prepare_power_potential:
+    input:
+        area_potential="results/prepare/{shape}/area_potentials/reference/area_potential_{tech}.parquet",
+        power_densities="data/prepare/power_densities.csv",
+        shapes="results/module_geo_boundaries/results/{shape}/shapes.parquet",
+        map_shapes_to_nodes="results/prepare/{shape}/map_shapes_to_nodes.parquet",
+    output:
+       "results/prepare/{shape}/power_potentials/power_potential_{tech}.parquet",
+    script: "../scripts/prepare_power_potential.py"
 
-# rule combine_power_potentials:
-#     input:
-#         expand(
-#             "results/prepare/{{shape}}/power_potentials/power_potential_{tech}.parquet",
-#             tech=["pv_rooftop", "pv_open_field", "wind_onshore", "wind_offshore"]
-#         )
-#     output:
-#         "results/prepare/{shape}/power_potentials_combined.parquet",
-#     script: "../scripts/combine_power_potentials.py"
+rule combine_power_potentials:
+    input:
+        expand(
+            "results/prepare/{{shape}}/power_potentials/power_potential_{tech}.parquet",
+            tech=["pv_rooftop", "pv_open_field", "wind_onshore", "wind_offshore"]
+        )
+    output:
+        "results/prepare/{shape}/power_potentials_combined.parquet",
+    script: "../scripts/combine_power_potentials.py"

@@ -24,6 +24,7 @@ with open(workflow.source_path("internal/settings.yaml"), "r") as f:
 # include: "rules/0_grid_builder.smk"
 include: "rules/0_module_area_potentials.smk"
 include: "rules/0_module_demand_electricity.smk"
+include: "rules/0_module_electricity_grid.smk"
 include: "rules/0_module_geo_boundaries.smk"
 include: "rules/0_module_hydropower.smk"
 include: "rules/0_module_powerplants.smk"
@@ -36,7 +37,19 @@ include: "rules/1_integrate.smk"
 # e.g.: workflow.source_path("scripts/_utils.py")
 
 
-SHAPES = "EUROPE_S_C1_ADM1"
+wildcard_constraints:
+    shape="ESP_PRT_NUTS2",
+    shapes="ESP_PRT_NUTS2"
+
+
+SHAPES = [
+    # "EUROPE_S_C1_ADM1",
+    # "EUROPE_NUTS0",
+    # "EUROPE_NUTS2",
+    # "EUROPE_NUTS3",
+    "ESP_PRT_NUTS2",
+    # "BGR_NUTS2",
+]
 rule all:
     default_target: True
     input:

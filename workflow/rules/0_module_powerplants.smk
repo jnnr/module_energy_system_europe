@@ -23,8 +23,8 @@ use rule * from module_powerplants as module_powerplants_*
 rule prepare_powerplants:
     input:
         data="results/module_powerplants/results/{shape}/aggregated/adjusted/{category}.parquet",
-        map_shapes_to_nodes="results/module_electricity_grid/{shape}/results/map_shapes_to_nodes.parquet",
-        shapes="results/prepare/{shapes}/shapes.parquet",
+        map_shapes_to_nodes="results/prepare/{shape}/map_shapes_to_nodes.parquet",
+        shapes="results/module_geo_boundaries/results/{shape}/shapes.parquet",
     output:
         "results/prepare/{shape}/powerplants/powerplants_{category}.parquet"
     script: "../scripts/prepare_powerplants.py"
