@@ -2,6 +2,9 @@ module_geo_boundaries:
   crs:
     projected: "epsg:3857"
     geographic: "epsg:4326"
+  voronoi_eez:
+    enabled: True
+    sample_spacing: 10000 # sample every 10 km
 
   scenarios:
     EUROPE_S_C1_ADM1:
@@ -13,7 +16,7 @@ module_geo_boundaries:
           source: "geoboundaries"
           release_type: "gbOpen"
 
-    NUTS0:
+    EUROPE_NUTS0:
       countries:
         "AUT":
           subtype: "0"
@@ -186,7 +189,7 @@ module_geo_boundaries:
           resolution: "01M"
           year: 2024
 
-    NUTS2:
+    EUROPE_NUTS2:
       countries:
         "AUT":
           subtype: "2"
@@ -359,7 +362,7 @@ module_geo_boundaries:
           resolution: "01M"
           year: 2024
 
-    NUTS3:
+    EUROPE_NUTS3:
       countries:
         "AUT":
           subtype: "3"
@@ -528,6 +531,27 @@ module_geo_boundaries:
           year: 2024
         "CHE":
           subtype: "3"
+          source: "nuts"
+          resolution: "01M"
+          year: 2024
+
+    ESP_PRT_NUTS2:
+      countries:
+        "ESP":
+          subtype: "2"
+          source: "nuts"
+          resolution: "01M"
+          year: 2024
+        "PRT":
+          subtype: "2"
+          source: "nuts"
+          resolution: 03M
+          year: 2024
+    
+    BGR_NUTS2:
+      countries:
+        "BGR":
+          subtype: "2"
           source: "nuts"
           resolution: "01M"
           year: 2024
