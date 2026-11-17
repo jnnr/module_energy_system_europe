@@ -1,0 +1,5 @@
+techs,power_density_MW_per_km2,reference
+wind_onshore,8,trondle_2019
+wind_offshore,15,trondle_2019
+pv_open_field,80,trondle_2019
+pv_rooftop,160,trondle_2019
