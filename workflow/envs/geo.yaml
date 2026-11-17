@@ -1,0 +1,9 @@
+name: geo
+channels:
+- conda-forge
+- bioconda
+- nodefaults
+dependencies:
+- geopandas >=1.2.0
+- pyarrow >=26.0.1
+- gregor 0.1.0.*

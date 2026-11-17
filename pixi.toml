@@ -21,18 +21,27 @@ ruff = ">=0.9.9"
 snakefmt = ">=0.10.2"
 snakemake-minimal = ">=9.19.0"
 pytz = ">=2026.1.post1"
+geopandas = ">=1.2.0"
+pyarrow = ">=26.0.1"
+
 
 [feature.module.dependencies]
 curl = ">=8.9.1"
 
+[feature.geo.dependencies]
+geopandas = ">=1.2.0"
+pyarrow = ">=26.0.1"
+gregor = "0.1.0.*"
+
+
 [environments]
 module = { features = ["module"], no-default-feature = true }
+geo  = { features = ["geo"], no-default-feature = true }
 
 [tasks]
 test-modelblocks = {cmd = "pytest tests/modelblocks"}
 test-unit = {cmd = "pytest tests/unit"}
 test-workflow = {cmd = "pytest tests/workflow/workflow_test.py"}
-
 
 [tasks.export-snakemake-env]
 description = "Export one Pixi environment as Snakemake-compatible conda files"
